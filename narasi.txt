@@ -1,0 +1,17 @@
+[INTRO]
+============================================
+   Dahulu kala, di Kerajaan Arcandia...
+
+   Empat menara misterius muncul dari
+   kedalaman bumi, mengirimkan gerombolan
+   monster yang menghancurkan segalanya.
+
+   Seorang kesatria muda bangun di antara
+   reruntuhan desa. Dengan hanya sebuah
+   pedang kayu tua, ia bersumpah untuk
+   menaklukkan keempat menara dan
+   menyelamatkan kerajaan.
+
+   Petualanganmu dimulai sekarang...
+============================================
+[END]
