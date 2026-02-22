@@ -12,9 +12,9 @@
 #include <windows.h>
 using namespace std;
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Tower Data
-// ═══════════════════════════════════════════
+// ===========================================
 
 TowerInfo towers[4] = {
     {"Menara Hutan Gelap",  "Hutan",   Color::BRIGHT_GREEN,   5, 1, false},
@@ -23,9 +23,9 @@ TowerInfo towers[4] = {
     {"Menara Kegelapan",    "Gelap",   Color::BRIGHT_MAGENTA, 5, 4, false}
 };
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Monster Generation
-// ═══════════════════════════════════════════
+// ===========================================
 
 Enemy generateMonster(int towerTier, int floor) {
     float dm = getDifficultyMultiplier(gameConfig.difficulty);
@@ -75,9 +75,9 @@ Enemy generateBoss(int towerTier) {
     return createEnemy(bossNames[t], hp, atk, def, expR, coinR);
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Display Battle Scene
-// ═══════════════════════════════════════════
+// ===========================================
 
 void displayBattleScene(Player &hero, Enemy &enemy) {
     clearScreen();
@@ -87,21 +87,21 @@ void displayBattleScene(Player &hero, Enemy &enemy) {
     int w = 52;
 
     // Enemy
-    drawDoubleBox(w, Box::SKULL + " " + enemy.name + " " + Box::SKULL, Color::BRIGHT_RED);
+    drawDoubleBox(w, "" + enemy.name + "", Color::BRIGHT_RED);
     drawHealthBar("HP", enemy.hp, enemy.maxHp, 22);
     drawDoubleBoxEnd(w, Color::BRIGHT_RED);
     cout << endl;
 
     // Player
-    drawDoubleBox(w, Box::SWORD + " " + hero.name + " (Lv." + to_string(hero.level) + ") " + Box::SWORD, Color::BRIGHT_CYAN);
+    drawDoubleBox(w, "" + hero.name + " (Lv." + to_string(hero.level) + ")", Color::BRIGHT_CYAN);
     drawHealthBar("HP", hero.hp, hero.maxHp, 22);
     drawManaBar("MP", hero.mp, hero.maxMp, 22);
     drawDoubleBoxEnd(w, Color::BRIGHT_CYAN);
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Random Tower Events
-// ═══════════════════════════════════════════
+// ===========================================
 
 void randomTowerEvent(Player &hero, int towerTier) {
     int roll = rand() % 100;
@@ -112,7 +112,7 @@ void randomTowerEvent(Player &hero, int towerTier) {
         cout << endl;
 
         int w = 50;
-        drawDoubleBox(w, Box::STAR + " PETI HARTA " + Box::STAR, Color::BRIGHT_YELLOW);
+        drawDoubleBox(w, "PETI HARTA", Color::BRIGHT_YELLOW);
         drawBoxLine(w, Color::WHITE + " Kamu menemukan peti harta karun!" + Color::RESET, Color::BRIGHT_YELLOW);
 
         int coinFound = 20 + rand() % (towerTier * 30);
@@ -137,7 +137,7 @@ void randomTowerEvent(Player &hero, int towerTier) {
         cout << endl;
 
         int w = 50;
-        drawDoubleBox(w, Box::SKULL + " JEBAKAN! " + Box::SKULL, Color::BRIGHT_RED);
+        drawDoubleBox(w, "JEBAKAN!", Color::BRIGHT_RED);
 
         int dmg = 10 + rand() % (towerTier * 15);
         hero.hp -= dmg;
@@ -155,7 +155,7 @@ void randomTowerEvent(Player &hero, int towerTier) {
         cout << endl;
 
         int w = 50;
-        drawDoubleBox(w, Box::HEART + " TEMPAT ISTIRAHAT " + Box::HEART, Color::BRIGHT_GREEN);
+        drawDoubleBox(w, "TEMPAT ISTIRAHAT", Color::BRIGHT_GREEN);
 
         int heal = 20 + rand() % (towerTier * 10);
         hero.hp += heal;
@@ -177,7 +177,7 @@ void randomTowerEvent(Player &hero, int towerTier) {
         cout << endl;
 
         int w = 50;
-        drawDoubleBox(w, Box::DIAMOND + " PEDAGANG KELILING " + Box::DIAMOND, Color::BRIGHT_MAGENTA);
+        drawDoubleBox(w, "PEDAGANG KELILING", Color::BRIGHT_MAGENTA);
         drawBoxLine(w, Color::WHITE + " \"Halo, mau beli sesuatu?\"" + Color::RESET, Color::BRIGHT_MAGENTA);
         drawSeparator(w, Color::BRIGHT_MAGENTA);
         drawBoxLine(w, Color::BRIGHT_WHITE + " [1] HP Potion   - 25G" + Color::RESET, Color::BRIGHT_MAGENTA);
@@ -212,7 +212,7 @@ void randomTowerEvent(Player &hero, int towerTier) {
             cout << endl;
 
             int w = 50;
-            drawDoubleBox(w, Box::SPARKLE + " ARTEFAK DITEMUKAN " + Box::SPARKLE, Color::BRIGHT_MAGENTA);
+            drawDoubleBox(w, "ARTEFAK DITEMUKAN", Color::BRIGHT_MAGENTA);
             drawBoxLine(w, Color::BRIGHT_YELLOW + " " + loreItems[loreCount-1].name + Color::RESET, Color::BRIGHT_MAGENTA);
             drawBoxLine(w, Color::DIM + " " + loreItems[loreCount-1].description + Color::RESET, Color::BRIGHT_MAGENTA);
             drawDoubleBoxEnd(w, Color::BRIGHT_MAGENTA);
@@ -226,9 +226,9 @@ void randomTowerEvent(Player &hero, int towerTier) {
     // else nothing happens (45% of the time)
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Battle System
-// ═══════════════════════════════════════════
+// ===========================================
 
 bool battle(Player &hero, Enemy &enemy) {
     // Log encounter in bestiary
@@ -245,11 +245,11 @@ bool battle(Player &hero, Enemy &enemy) {
         cout << endl;
         int w = 52;
         drawDoubleBox(w, "AKSI", Color::BRIGHT_YELLOW);
-        drawBoxLine(w, Color::BRIGHT_WHITE + " [1] " + Box::SWORD + " Attack" + Color::RESET, Color::BRIGHT_YELLOW);
-        drawBoxLine(w, Color::BRIGHT_WHITE + " [2] " + Box::SHIELD + " Defend" + Color::RESET, Color::BRIGHT_YELLOW);
-        drawBoxLine(w, Color::BRIGHT_WHITE + " [3] " + Box::STAR + " Skill" + Color::RESET, Color::BRIGHT_YELLOW);
-        drawBoxLine(w, Color::BRIGHT_WHITE + " [4] " + Box::HEART + " Item" + Color::RESET, Color::BRIGHT_YELLOW);
-        drawBoxLine(w, Color::DIM + " [5] " + Box::DIAMOND + " Kabur" + Color::RESET, Color::BRIGHT_YELLOW);
+        drawBoxLine(w, Color::BRIGHT_WHITE + " [1] " + "Attack" + Color::RESET, Color::BRIGHT_YELLOW);
+        drawBoxLine(w, Color::BRIGHT_WHITE + " [2] " + " Defend" + Color::RESET, Color::BRIGHT_YELLOW);
+        drawBoxLine(w, Color::BRIGHT_WHITE + " [3] " + "Skill" + Color::RESET, Color::BRIGHT_YELLOW);
+        drawBoxLine(w, Color::BRIGHT_WHITE + " [4] " + "Item" + Color::RESET, Color::BRIGHT_YELLOW);
+        drawBoxLine(w, Color::DIM + " [5] " + "Kabur" + Color::RESET, Color::BRIGHT_YELLOW);
         drawDoubleBoxEnd(w, Color::BRIGHT_YELLOW);
 
         int choice = getChoice(1, 5);
@@ -283,7 +283,7 @@ bool battle(Player &hero, Enemy &enemy) {
             enemy.hp -= dmg;
             if (enemy.hp < 0) enemy.hp = 0;
 
-            cout << "  " << Color::BRIGHT_RED << Box::SWORD << " " << hero.name
+            cout << "  " << Color::BRIGHT_RED << " " << hero.name
                  << " menyerang! -" << dmg << " HP";
             if (isCrit) cout << " (CRITICAL!)";
             cout << Color::RESET << endl;
@@ -294,7 +294,7 @@ bool battle(Player &hero, Enemy &enemy) {
         case 2: // Defend
             defending = true;
             playerActed = true;
-            cout << "  " << Color::BRIGHT_BLUE << Box::SHIELD << " " << hero.name
+            cout << "  " << Color::BRIGHT_BLUE << " " << hero.name
                  << " bertahan! DEF naik untuk turn ini." << Color::RESET << endl;
             break;
 
@@ -321,18 +321,18 @@ bool battle(Player &hero, Enemy &enemy) {
                 enemy.hp -= dmg;
                 if (enemy.hp < 0) enemy.hp = 0;
 
-                cout << "  " << Color::BRIGHT_MAGENTA << Box::SPARKLE << " " << sk.name
+                cout << "  " << Color::BRIGHT_MAGENTA << " " << sk.name
                      << "! -" << dmg << " HP" << Color::RESET << endl;
             } else if (sk.type == SKILL_HEAL) {
                 int heal = useHealSkill(skillId);
                 if (heal >= 999) {
                     hero.hp = hero.maxHp;
-                    cout << "  " << Color::BRIGHT_GREEN << Box::HEART << " Full Restore! HP penuh!"
+                    cout << "  " << Color::BRIGHT_GREEN << " Full Restore! HP penuh!"
                          << Color::RESET << endl;
                 } else {
                     hero.hp += heal;
                     if (hero.hp > hero.maxHp) hero.hp = hero.maxHp;
-                    cout << "  " << Color::BRIGHT_GREEN << Box::HEART << " " << sk.name
+                    cout << "  " << Color::BRIGHT_GREEN << " " << sk.name
                          << "! +" << heal << " HP" << Color::RESET << endl;
                 }
                 sfxHeal();
@@ -340,12 +340,12 @@ bool battle(Player &hero, Enemy &enemy) {
                 if (skillId == 8) { // War Cry - ATK buff
                     buffAtkMult = 1.0f + sk.power / 100.0f;
                     buffAtkTurns = 3;
-                    cout << "  " << Color::BRIGHT_YELLOW << Box::STAR << " ATK +"
+                    cout << "  " << Color::BRIGHT_YELLOW << " ATK +"
                          << sk.power << "% untuk 3 turn!" << Color::RESET << endl;
                 } else { // Iron Fortress - DEF buff
                     buffDefMult = 1.0f + sk.power / 100.0f;
                     buffDefTurns = 3;
-                    cout << "  " << Color::BRIGHT_CYAN << Box::SHIELD << " DEF +"
+                    cout << "  " << Color::BRIGHT_CYAN << " DEF +"
                          << sk.power << "% untuk 3 turn!" << Color::RESET << endl;
                 }
             }
@@ -386,7 +386,7 @@ bool battle(Player &hero, Enemy &enemy) {
                 hero.hp += heal;
                 if (hero.hp > hero.maxHp) hero.hp = hero.maxHp;
                 removeItem(itemId, 1);
-                cout << "  " << Color::BRIGHT_GREEN << Box::HEART << " HP +" << heal << "!" << Color::RESET << endl;
+                cout << "  " << Color::BRIGHT_GREEN << " HP +" << heal << "!" << Color::RESET << endl;
                 sfxHeal();
             } else if (itemId == 2) { // MP Potion
                 hero.mp += 30;
@@ -397,7 +397,7 @@ bool battle(Player &hero, Enemy &enemy) {
                 hero.hp = hero.maxHp;
                 hero.mp = hero.maxMp;
                 removeItem(itemId, 1);
-                cout << "  " << Color::BRIGHT_YELLOW << Box::SPARKLE << " Full HP + MP!" << Color::RESET << endl;
+                cout << "  " << Color::BRIGHT_YELLOW << " Full HP + MP!" << Color::RESET << endl;
             } else if (itemId == 12) { // Scroll of Power
                 buffAtkMult = 1.5f;
                 buffAtkTurns = 99;
@@ -412,7 +412,7 @@ bool battle(Player &hero, Enemy &enemy) {
                 enemy.hp -= 80;
                 if (enemy.hp < 0) enemy.hp = 0;
                 removeItem(itemId, 1);
-                cout << "  " << Color::BRIGHT_RED << Box::SKULL << " BOOM! -80 HP!" << Color::RESET << endl;
+                cout << "  " << Color::BRIGHT_RED << " BOOM! -80 HP!" << Color::RESET << endl;
             } else if (itemId == 17) { // Smoke Bomb - escape
                 removeItem(itemId, 1);
                 cout << "  " << Color::DIM << "Kamu menggunakan Smoke Bomb dan kabur!" << Color::RESET << endl;
@@ -447,7 +447,7 @@ bool battle(Player &hero, Enemy &enemy) {
             if (rollDodge(hero)) {
                 animateDodge();
                 sfxDodge();
-                cout << "  " << Color::BRIGHT_CYAN << Box::DIAMOND << " " << hero.name
+                cout << "  " << Color::BRIGHT_CYAN << " " << hero.name
                      << " menghindari serangan!" << Color::RESET << endl;
             } else {
                 animateAttack(enemy.name, Color::BRIGHT_RED);
@@ -464,7 +464,7 @@ bool battle(Player &hero, Enemy &enemy) {
                 hero.hp -= dmg;
                 if (hero.hp < 0) hero.hp = 0;
 
-                cout << "  " << Color::BRIGHT_RED << Box::SKULL << " " << enemy.name
+                cout << "  " << Color::BRIGHT_RED << " " << enemy.name
                      << " menyerang! -" << dmg << " HP" << Color::RESET << endl;
             }
             sleepMs(600);
@@ -514,16 +514,16 @@ bool battle(Player &hero, Enemy &enemy) {
     }
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Tower Select Menu
-// ═══════════════════════════════════════════
+// ===========================================
 
 void towerSelectMenu(Player &hero) {
     clearScreen();
     cout << endl;
 
     int w = 56;
-    drawDoubleBox(w, Box::SWORD + " PILIH TOWER " + Box::SWORD, Color::BRIGHT_RED);
+    drawDoubleBox(w, "PILIH TOWER", Color::BRIGHT_RED);
 
     for (int i = 0; i < 4; i++) {
         string statusStr;
@@ -557,9 +557,9 @@ void towerSelectMenu(Player &hero) {
     enterTower(hero, choice);
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Enter Tower
-// ═══════════════════════════════════════════
+// ===========================================
 
 void enterTower(Player &hero, int towerNumber) {
     int t = towerNumber - 1;
@@ -610,7 +610,7 @@ void enterTower(Player &hero, int towerNumber) {
 
             clearScreen();
             cout << endl;
-            drawDoubleBox(w, Box::SKULL + " BOSS BATTLE! " + Box::SKULL, Color::BRIGHT_RED);
+            drawDoubleBox(w, "BOSS BATTLE!", Color::BRIGHT_RED);
             drawBoxLine(w, Color::BRIGHT_RED + " " + enemy.name + " muncul!" + Color::RESET, Color::BRIGHT_RED);
             drawDoubleBoxEnd(w, Color::BRIGHT_RED);
             sleepMs(1500);
@@ -645,14 +645,14 @@ void enterTower(Player &hero, int towerNumber) {
         // Bonus reward
         int bonusCoin = towerNumber * 100;
         hero.coin += bonusCoin;
-        cout << "  " << Color::BRIGHT_YELLOW << Box::STAR << " Bonus Tower Clear: +"
+        cout << "  " << Color::BRIGHT_YELLOW << " Bonus Tower Clear: +"
              << bonusCoin << "G!" << Color::RESET << endl;
 
         // Special item drop from boss
         if (towerNumber <= 4) {
             int specialItems[] = {4, 5, 6, 7}; // armor progression
             addItem(specialItems[towerNumber - 1], 1);
-            cout << "  " << Color::BRIGHT_CYAN << Box::DIAMOND << " Item langka: "
+            cout << "  " << Color::BRIGHT_CYAN << " Item langka: "
                  << getItemTemplate(specialItems[towerNumber - 1]).name << "!" << Color::RESET << endl;
             sfxItem();
         }

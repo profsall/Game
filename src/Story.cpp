@@ -6,16 +6,16 @@
 #include <iostream>
 using namespace std;
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Dialog Display Engine
-// ═══════════════════════════════════════════
+// ===========================================
 
 void showDialog(const vector<DialogLine>& lines) {
     int w = 56;
     for (const auto& dl : lines) {
         cout << endl;
         if (!dl.speaker.empty()) {
-            cout << "  " << Color::BOLD << dl.color << Box::DIAMOND << " "
+            cout << "  " << Color::BOLD << dl.color << " "
                  << dl.speaker << Color::RESET << endl;
         }
 
@@ -46,9 +46,9 @@ void showNarration(const vector<string>& lines, int delayMs) {
     }
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Dialog Choice System (Feature #2)
-// ═══════════════════════════════════════════
+// ===========================================
 
 int showDialogChoice(const string& prompt, const vector<string>& choices) {
     cout << endl;
@@ -63,9 +63,9 @@ int showDialogChoice(const string& prompt, const vector<string>& choices) {
     return getChoice(1, (int)choices.size());
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Prologue
-// ═══════════════════════════════════════════
+// ===========================================
 
 void showPrologue() {
     clearScreen();
@@ -112,9 +112,9 @@ void showPrologue() {
     pausePrompt();
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Chapter Intros (with legacy call)
-// ═══════════════════════════════════════════
+// ===========================================
 
 void showChapterIntro(int chapter) {
     switch (chapter) {
@@ -137,9 +137,9 @@ void showChapterIntro(int chapter) {
     }
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Chapter Intros WITH Dialog Choices (#2)
-// ═══════════════════════════════════════════
+// ===========================================
 
 void showChapterIntroWithChoices(int chapter, Player &hero) {
     showChapterIntro(chapter);
@@ -162,7 +162,7 @@ void showChapterIntroWithChoices(int chapter, Player &hero) {
             showDialog({{"Tetua Desa", "Semangat bagus! Terimalah ini sebagai tanda kepercayaan.", Color::BRIGHT_GREEN}});
             addItem(1, 1); // HP Potion+
             sfxItem();
-            cout << "  " << Color::BRIGHT_GREEN << Box::STAR << " Mendapat HP Potion+!" << Color::RESET << endl;
+            cout << "  " << Color::BRIGHT_GREEN << " Mendapat HP Potion+!" << Color::RESET << endl;
         } else if (choice == 2) {
             showDialog({
                 {"Tetua Desa", "Ketakutan adalah tanda kau menghargai nyawamu.", Color::BRIGHT_GREEN},
@@ -227,7 +227,7 @@ void showChapterIntroWithChoices(int chapter, Player &hero) {
             showDialog({{"Alkemis Tua", "Ini ramuan terakhirku. Gunakan dengan bijak.", Color::BRIGHT_RED}});
             addItem(14, 1); // Phoenix Feather
             sfxItem();
-            cout << "  " << Color::BRIGHT_YELLOW << Box::STAR << " Mendapat Phoenix Feather!" << Color::RESET << endl;
+            cout << "  " << Color::BRIGHT_YELLOW << " Mendapat Phoenix Feather!" << Color::RESET << endl;
         } else {
             showDialog({
                 {"Alkemis Tua", "Kepercayaan diri yang menakjubkan...", Color::BRIGHT_RED},
@@ -279,9 +279,9 @@ void showChapterIntroWithChoices(int chapter, Player &hero) {
     pausePrompt();
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Boss Pre-Battle Dialog (Feature #1)
-// ═══════════════════════════════════════════
+// ===========================================
 
 void showBossDialog(int towerNumber) {
     clearScreen();
@@ -290,7 +290,7 @@ void showBossDialog(int towerNumber) {
     switch (towerNumber) {
     case 1: {
         int w = 52;
-        drawDoubleBox(w, Box::SKULL + " RAJA GOBLIN " + Box::SKULL, Color::BRIGHT_RED);
+        drawDoubleBox(w, "RAJA GOBLIN", Color::BRIGHT_RED);
         drawDoubleBoxEnd(w, Color::BRIGHT_RED);
 
         vector<DialogLine> dialog = {
@@ -304,7 +304,7 @@ void showBossDialog(int towerNumber) {
     }
     case 2: {
         int w = 52;
-        drawDoubleBox(w, Box::DIAMOND + " GOLEM KRISTAL " + Box::DIAMOND, Color::BRIGHT_BLUE);
+        drawDoubleBox(w, "GOLEM KRISTAL", Color::BRIGHT_BLUE);
         drawDoubleBoxEnd(w, Color::BRIGHT_BLUE);
 
         vector<DialogLine> dialog = {
@@ -318,7 +318,7 @@ void showBossDialog(int towerNumber) {
     }
     case 3: {
         int w = 52;
-        drawDoubleBox(w, Box::STAR + " NAGA API INFERNO " + Box::STAR, Color::BRIGHT_RED);
+        drawDoubleBox(w, "NAGA API INFERNO", Color::BRIGHT_RED);
         drawDoubleBoxEnd(w, Color::BRIGHT_RED);
 
         vector<DialogLine> dialog = {
@@ -332,7 +332,7 @@ void showBossDialog(int towerNumber) {
     }
     case 4: {
         int w = 52;
-        drawDoubleBox(w, Box::SKULL + " DARK LORD UMBRA " + Box::SKULL, Color::BRIGHT_MAGENTA);
+        drawDoubleBox(w, "DARK LORD UMBRA", Color::BRIGHT_MAGENTA);
         drawDoubleBoxEnd(w, Color::BRIGHT_MAGENTA);
 
         vector<DialogLine> dialog = {
@@ -352,9 +352,9 @@ void showBossDialog(int towerNumber) {
     pausePrompt("Tekan ENTER untuk bertarung...");
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Companion NPC — Lyra (Feature #3)
-// ═══════════════════════════════════════════
+// ===========================================
 
 void companionEncounter(int chapter, Player &hero) {
     clearScreen();
@@ -366,7 +366,7 @@ void companionEncounter(int chapter, Player &hero) {
         if (hero.companionMet) return;
 
         int w = 52;
-        drawDoubleBox(w, Box::HEART + " PERTEMUAN TAK TERDUGA " + Box::HEART, Color::BRIGHT_MAGENTA);
+        drawDoubleBox(w, "PERTEMUAN TAK TERDUGA", Color::BRIGHT_MAGENTA);
         drawDoubleBoxEnd(w, Color::BRIGHT_MAGENTA);
 
         vector<string> narration = {
@@ -392,7 +392,7 @@ void companionEncounter(int chapter, Player &hero) {
             hero.companionMet = true;
             addItem(0, 2); // 2 HP Potions
             sfxItem();
-            cout << "  " << Color::BRIGHT_GREEN << Box::STAR << " Mendapat 2x HP Potion dari Lyra!" << Color::RESET << endl;
+            cout << "  " << Color::BRIGHT_GREEN << " Mendapat 2x HP Potion dari Lyra!" << Color::RESET << endl;
             cout << "  " << Color::BRIGHT_MAGENTA << "Lyra akan mengingat kebaikanmu..." << Color::RESET << endl;
         } else {
             showNarration({"Kau berjalan melewati teriakan itu.", "Mungkin itu keputusan yang akan kau sesali..."}, 35);
@@ -405,7 +405,7 @@ void companionEncounter(int chapter, Player &hero) {
         if (!hero.companionMet) return;
 
         int w = 52;
-        drawDoubleBox(w, Box::DIAMOND + " TEMAN LAMA " + Box::DIAMOND, Color::BRIGHT_MAGENTA);
+        drawDoubleBox(w, "TEMAN LAMA", Color::BRIGHT_MAGENTA);
         drawDoubleBoxEnd(w, Color::BRIGHT_MAGENTA);
 
         showDialog({
@@ -426,7 +426,7 @@ void companionEncounter(int chapter, Player &hero) {
         if (!hero.companionMet) return;
 
         int w = 52;
-        drawDoubleBox(w, Box::SKULL + " LYRA DALAM BAHAYA! " + Box::SKULL, Color::BRIGHT_RED);
+        drawDoubleBox(w, "LYRA DALAM BAHAYA!", Color::BRIGHT_RED);
         drawDoubleBoxEnd(w, Color::BRIGHT_RED);
 
         vector<string> narration = {
@@ -471,7 +471,7 @@ void companionEncounter(int chapter, Player &hero) {
         if (!hero.companionMet || !hero.companionSaved) return;
 
         int w = 52;
-        drawDoubleBox(w, Box::STAR + " BANTUAN TAK TERDUGA " + Box::STAR, Color::BRIGHT_MAGENTA);
+        drawDoubleBox(w, "BANTUAN TAK TERDUGA", Color::BRIGHT_MAGENTA);
         drawDoubleBoxEnd(w, Color::BRIGHT_MAGENTA);
 
         showDialog({
@@ -488,7 +488,7 @@ void companionEncounter(int chapter, Player &hero) {
         hero.defense += 5;
         sfxHeal();
 
-        cout << "  " << Color::BRIGHT_GREEN << Box::SPARKLE << " Lyra memulihkan HP dan MP-mu!" << Color::RESET << endl;
+        cout << "  " << Color::BRIGHT_GREEN << " Lyra memulihkan HP dan MP-mu!" << Color::RESET << endl;
         cout << "  " << Color::BRIGHT_RED << "+10 ATK " << Color::BRIGHT_CYAN << "+5 DEF "
              << Color::BRIGHT_MAGENTA << "(kekuatan persahabatan)" << Color::RESET << endl;
 
@@ -500,9 +500,9 @@ void companionEncounter(int chapter, Player &hero) {
     }
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Mid-Tower Story Beats (Feature #6)
-// ═══════════════════════════════════════════
+// ===========================================
 
 void showMidTowerBeat(int towerNumber, int floor) {
     clearScreen();
@@ -512,7 +512,7 @@ void showMidTowerBeat(int towerNumber, int floor) {
     case 1: {
         if (floor == 3) {
             int w = 50;
-            drawDoubleBox(w, Box::SKULL + " PENEMUAN " + Box::SKULL, Color::BRIGHT_RED);
+            drawDoubleBox(w, "PENEMUAN", Color::BRIGHT_RED);
             drawDoubleBoxEnd(w, Color::BRIGHT_RED);
 
             vector<string> narration = {
@@ -608,9 +608,9 @@ void showMidTowerBeat(int towerNumber, int floor) {
     pausePrompt();
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Flashback / Memory Fragment (Feature #5)
-// ═══════════════════════════════════════════
+// ===========================================
 
 void showFlashback() {
     clearScreen();
@@ -620,7 +620,7 @@ void showFlashback() {
     string c = Color::BRIGHT_MAGENTA;
     string r = Color::RESET;
 
-    drawDoubleBox(w, Box::SPARKLE + " FRAGMEN INGATAN " + Box::SPARKLE, c);
+    drawDoubleBox(w, "FRAGMEN INGATAN", c);
     drawDoubleBoxEnd(w, c);
     cout << endl;
 
@@ -717,9 +717,9 @@ void showFlashback() {
     pausePrompt();
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Chapter Outros
-// ═══════════════════════════════════════════
+// ===========================================
 
 void showChapterOutro(int chapter) {
     clearScreen();
@@ -771,9 +771,9 @@ void showChapterOutro(int chapter) {
     }
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Multiple Endings (Feature #4)
-// ═══════════════════════════════════════════
+// ===========================================
 
 void showEnding(Player &hero) {
     clearScreen();
@@ -790,7 +790,7 @@ void showEnding(Player &hero) {
     cout << endl;
 
     cout << "  " << c1 << Color::BOLD
-         << centerText(Box::STAR + " " + Box::STAR + " " + Box::STAR + "  F I N A L E  " + Box::STAR + " " + Box::STAR + " " + Box::STAR, 56)
+         << centerText(" F I N A L E ", 56)
          << r << endl;
     cout << endl;
 

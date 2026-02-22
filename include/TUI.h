@@ -7,101 +7,96 @@
 using std::string;
 using std::vector;
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  ANSI Color Codes
-// ═══════════════════════════════════════════
+// ===========================================
 
 namespace Color {
-    // Reset
-    const string RESET   = "\033[0m";
-    const string BOLD    = "\033[1m";
-    const string DIM     = "\033[2m";
-    const string ITALIC  = "\033[3m";
-    const string ULINE   = "\033[4m";
-    const string BLINK   = "\033[5m";
-    const string REVERSE = "\033[7m";
+    const string RESET   = "";
+    const string BOLD    = "";
+    const string DIM     = "";
+    const string ITALIC  = "";
+    const string ULINE   = "";
+    const string BLINK   = "";
+    const string REVERSE = "";
 
-    // Foreground
-    const string BLACK   = "\033[30m";
-    const string RED     = "\033[31m";
-    const string GREEN   = "\033[32m";
-    const string YELLOW  = "\033[33m";
-    const string BLUE    = "\033[34m";
-    const string MAGENTA = "\033[35m";
-    const string CYAN    = "\033[36m";
-    const string WHITE   = "\033[37m";
+    const string BLACK   = "";
+    const string RED     = "";
+    const string GREEN   = "";
+    const string YELLOW  = "";
+    const string BLUE    = "";
+    const string MAGENTA = "";
+    const string CYAN    = "";
+    const string WHITE   = "";
 
-    // Bright Foreground
-    const string BRIGHT_BLACK   = "\033[90m";
-    const string BRIGHT_RED     = "\033[91m";
-    const string BRIGHT_GREEN   = "\033[92m";
-    const string BRIGHT_YELLOW  = "\033[93m";
-    const string BRIGHT_BLUE    = "\033[94m";
-    const string BRIGHT_MAGENTA = "\033[95m";
-    const string BRIGHT_CYAN    = "\033[96m";
-    const string BRIGHT_WHITE   = "\033[97m";
+    const string BRIGHT_BLACK   = "";
+    const string BRIGHT_RED     = "";
+    const string BRIGHT_GREEN   = "";
+    const string BRIGHT_YELLOW  = "";
+    const string BRIGHT_BLUE    = "";
+    const string BRIGHT_MAGENTA = "";
+    const string BRIGHT_CYAN    = "";
+    const string BRIGHT_WHITE   = "";
 
-    // Background
-    const string BG_BLACK   = "\033[40m";
-    const string BG_RED     = "\033[41m";
-    const string BG_GREEN   = "\033[42m";
-    const string BG_YELLOW  = "\033[43m";
-    const string BG_BLUE    = "\033[44m";
-    const string BG_MAGENTA = "\033[45m";
-    const string BG_CYAN    = "\033[46m";
-    const string BG_WHITE   = "\033[47m";
+    const string BG_BLACK   = "";
+    const string BG_RED     = "";
+    const string BG_GREEN   = "";
+    const string BG_YELLOW  = "";
+    const string BG_BLUE    = "";
+    const string BG_MAGENTA = "";
+    const string BG_CYAN    = "";
+    const string BG_WHITE   = "";
 
-    // Bright Background
-    const string BG_BRIGHT_BLACK = "\033[100m";
+    const string BG_BRIGHT_BLACK = "";
 }
 
-// ═══════════════════════════════════════════
-//  Unicode Box-Drawing Characters
-// ═══════════════════════════════════════════
+// ===========================================
+//  Box-Drawing Characters (plain ASCII)
+// ===========================================
 
 namespace Box {
-    // Double-line box
-    const string TL = "\u2554"; // ╔
-    const string TR = "\u2557"; // ╗
-    const string BL = "\u255A"; // ╚
-    const string BR = "\u255D"; // ╝
-    const string H  = "\u2550"; // ═
-    const string V  = "\u2551"; // ║
-    const string LT = "\u2560"; // ╠
-    const string RT = "\u2563"; // ╣
-    const string TT = "\u2566"; // ╦
-    const string BT = "\u2569"; // ╩
-    const string CR = "\u256C"; // ╬
+    // Double-line box (ASCII)
+    const string TL = "+";
+    const string TR = "+";
+    const string BL = "+";
+    const string BR = "+";
+    const string H  = "-";
+    const string V  = "|";
+    const string LT = "+";
+    const string RT = "+";
+    const string TT = "+";
+    const string BT = "+";
+    const string CR = "+";
 
-    // Single-line box
-    const string STL = "\u250C"; // ┌
-    const string STR = "\u2510"; // ┐
-    const string SBL = "\u2514"; // └
-    const string SBR = "\u2518"; // ┘
-    const string SH  = "\u2500"; // ─
-    const string SV  = "\u2502"; // │
-    const string SLT = "\u251C"; // ├
-    const string SRT = "\u2524"; // ┤
+    // Single-line box (ASCII)
+    const string STL = "+";
+    const string STR = "+";
+    const string SBL = "+";
+    const string SBR = "+";
+    const string SH  = "-";
+    const string SV  = "|";
+    const string SLT = "+";
+    const string SRT = "+";
 
-    // Special
-    const string BLOCK_FULL  = "\u2588"; // █
-    const string BLOCK_LIGHT = "\u2591"; // ░
-    const string BLOCK_MED   = "\u2592"; // ▒
-    const string BLOCK_DARK  = "\u2593"; // ▓
-    const string DIAMOND     = "\u25C6"; // ◆
-    const string ARROW_R     = "\u25B6"; // ▶
-    const string ARROW_L     = "\u25C0"; // ◀
-    const string STAR        = "\u2605"; // ★
-    const string HEART       = "\u2665"; // ♥
-    const string SWORD       = "\u2694"; // ⚔
-    const string SHIELD      = "\u2764"; // ❤ (used as shield icon)
-    const string SKULL       = "\u2620"; // ☠
-    const string SPARKLE     = "\u2728"; // ✨
+    // Special (all empty - no icons)
+    const string BLOCK_FULL  = "#";
+    const string BLOCK_LIGHT = ".";
+    const string BLOCK_MED   = ":";
+    const string BLOCK_DARK  = "#";
+    const string DIAMOND     = "";
+    const string ARROW_R     = ">";
+    const string ARROW_L     = "<";
+    const string STAR        = "";
+    const string HEART       = "";
+    const string SWORD       = "";
+    const string SHIELD      = "";
+    const string SKULL       = "";
+    const string SPARKLE     = "";
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  TUI Functions
-// ═══════════════════════════════════════════
+// ===========================================
 
 // Setup & Basics
 void initTUI();

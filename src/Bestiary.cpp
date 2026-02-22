@@ -85,7 +85,7 @@ void showBestiary() {
     cout << endl;
 
     int w = 56;
-    drawDoubleBox(w, Box::SKULL + " BESTIARY " + Box::SKULL, Color::BRIGHT_RED);
+    drawDoubleBox(w, " BESTIARY ", Color::BRIGHT_RED);
 
     drawBoxLine(w, Color::BRIGHT_WHITE + " Monster ditemukan: " + Color::BRIGHT_YELLOW + to_string(bestiaryCount)
         + Color::DIM + " | Total kills: " + Color::BRIGHT_RED + to_string(getTotalKills()) + Color::RESET, Color::BRIGHT_RED);

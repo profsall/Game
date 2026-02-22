@@ -9,9 +9,9 @@
 #include <windows.h>
 using namespace std;
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Save Slot System (3 slots)
-// ═══════════════════════════════════════════
+// ===========================================
 
 static string getSaveFilename(int slot) {
     return "save_" + to_string(slot) + ".txt";
@@ -74,7 +74,7 @@ void savegame(Player &p, int slot) {
     // Save bestiary
     saveBestiary(getBestiaryFilename(slot));
 
-    cout << "  " << Color::BRIGHT_GREEN << Box::STAR << " Game disimpan ke Slot "
+    cout << "  " << Color::BRIGHT_GREEN << " Game disimpan ke Slot "
          << slot << "!" << Color::RESET << endl;
     sleepMs(800);
 }
@@ -164,9 +164,9 @@ bool loadgame(Player &p, int slot) {
     return true;
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Legacy savegame (for backward compat)
-// ═══════════════════════════════════════════
+// ===========================================
 
 void savegame(Player &p) {
     savegame(p, 1);
@@ -176,16 +176,16 @@ bool loadgame(Player &p) {
     return loadgame(p, 1);
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Save Slot Selection UI
-// ═══════════════════════════════════════════
+// ===========================================
 
 int showSaveSlotMenu(const string& action) {
     clearScreen();
     cout << endl;
 
     int w = 52;
-    drawDoubleBox(w, Box::DIAMOND + " " + action + " - Pilih Slot " + Box::DIAMOND, Color::BRIGHT_GREEN);
+    drawDoubleBox(w, " " + action + " - Pilih Slot ", Color::BRIGHT_GREEN);
 
     for (int s = 1; s <= 3; s++) {
         string filename = getSaveFilename(s);
@@ -212,9 +212,9 @@ int showSaveSlotMenu(const string& action) {
     return getChoice(0, 3);
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Title Screen
-// ═══════════════════════════════════════════
+// ===========================================
 
 void opening(int position) {
     drawTitleArt();

@@ -6,9 +6,9 @@
 #include <iostream>
 using namespace std;
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Sword Upgrade Costs
-// ═══════════════════════════════════════════
+// ===========================================
 
 int getUpgradeCost(int currentLevel) {
     switch (currentLevel) {
@@ -20,16 +20,16 @@ int getUpgradeCost(int currentLevel) {
     }
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Sword Upgrades
-// ═══════════════════════════════════════════
+// ===========================================
 
 void showSwordUpgrades(Player &hero) {
     clearScreen();
     cout << endl;
 
     int w = 56;
-    drawDoubleBox(w, Box::SWORD + " UPGRADE PEDANG " + Box::SWORD, Color::BRIGHT_RED);
+    drawDoubleBox(w, " UPGRADE PEDANG ", Color::BRIGHT_RED);
 
     drawBoxLine(w, Color::BRIGHT_WHITE + " Pedang saat ini: " + Color::BRIGHT_CYAN
         + getSwordName(hero.swordLevel) + Color::DIM + " (+)" + to_string(getSwordBonus(hero.swordLevel))
@@ -87,7 +87,7 @@ void showSwordUpgrades(Player &hero) {
         hero.coin -= cost;
         hero.swordLevel++;
         sfxItem();
-        cout << "  " << Color::BRIGHT_GREEN << Box::SPARKLE << " Upgrade berhasil! "
+        cout << "  " << Color::BRIGHT_GREEN << " Upgrade berhasil! "
              << getSwordName(hero.swordLevel) << "!" << Color::RESET << endl;
     } else if (choice == 1) {
         cout << "  " << Color::BRIGHT_RED << "Gold tidak cukup!" << Color::RESET << endl;
@@ -95,9 +95,9 @@ void showSwordUpgrades(Player &hero) {
     sleepMs(800);
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Item Shop
-// ═══════════════════════════════════════════
+// ===========================================
 
 void showItemShop(Player &hero) {
     while (true) {
@@ -105,7 +105,7 @@ void showItemShop(Player &hero) {
         cout << endl;
 
         int w = 56;
-        drawDoubleBox(w, Box::DIAMOND + " TOKO ITEM " + Box::DIAMOND, Color::BRIGHT_GREEN);
+        drawDoubleBox(w, " TOKO ITEM ", Color::BRIGHT_GREEN);
 
         // Consumables
         int shopItems[] = {0, 1, 2, 3, 12, 13, 14, 15, 16, 17, 18, 19};
@@ -141,14 +141,14 @@ void showItemShop(Player &hero) {
                 hero.maxHp += 20;
                 hero.hp += 20;
                 sfxItem();
-                cout << "  " << Color::BRIGHT_GREEN << Box::SPARKLE << " Max HP +20!"
+                cout << "  " << Color::BRIGHT_GREEN << " Max HP +20!"
                      << Color::RESET << endl;
             } else if (it.id == 19) {
                 // Mana Crystal - permanent MP boost
                 hero.maxMp += 10;
                 hero.mp += 10;
                 sfxItem();
-                cout << "  " << Color::BRIGHT_BLUE << Box::SPARKLE << " Max MP +10!"
+                cout << "  " << Color::BRIGHT_BLUE << " Max MP +10!"
                      << Color::RESET << endl;
             } else {
                 addItem(itemId, 1);
@@ -163,9 +163,9 @@ void showItemShop(Player &hero) {
     }
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Equipment Shop
-// ═══════════════════════════════════════════
+// ===========================================
 
 void showEquipShop(Player &hero) {
     while (true) {
@@ -173,7 +173,7 @@ void showEquipShop(Player &hero) {
         cout << endl;
 
         int w = 56;
-        drawDoubleBox(w, Box::SHIELD + " TOKO PERLENGKAPAN " + Box::SHIELD, Color::BRIGHT_BLUE);
+        drawDoubleBox(w, " TOKO PERLENGKAPAN ", Color::BRIGHT_BLUE);
 
         // Armor items
         int armorIds[] = {4, 5, 6, 7};    // Leather, Chain, Plate, Dragon
@@ -233,11 +233,11 @@ void showEquipShop(Player &hero) {
             // Auto-equip
             if (it.type == ITEM_ARMOR) {
                 equipArmor(buyId);
-                cout << "  " << Color::BRIGHT_GREEN << Box::SHIELD << " " << it.name
+                cout << "  " << Color::BRIGHT_GREEN << " " << it.name
                      << " dibeli dan di-equip!" << Color::RESET << endl;
             } else {
                 equipAccessory(buyId);
-                cout << "  " << Color::BRIGHT_MAGENTA << Box::DIAMOND << " " << it.name
+                cout << "  " << Color::BRIGHT_MAGENTA << " " << it.name
                      << " dibeli dan di-equip!" << Color::RESET << endl;
             }
         } else {
@@ -247,9 +247,9 @@ void showEquipShop(Player &hero) {
     }
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Main Shop Menu
-// ═══════════════════════════════════════════
+// ===========================================
 
 void openShop(Player &hero) {
     while (true) {
@@ -257,16 +257,16 @@ void openShop(Player &hero) {
         cout << endl;
 
         int w = 56;
-        drawDoubleBox(w, Box::STAR + " TOKO KESATRIA " + Box::STAR, Color::BRIGHT_MAGENTA);
+        drawDoubleBox(w, " TOKO KESATRIA ", Color::BRIGHT_MAGENTA);
 
         // NPC greeting
-        drawBoxLine(w, Color::BRIGHT_GREEN + " " + Box::DIAMOND + " Penjaga Toko:" + Color::RESET, Color::BRIGHT_MAGENTA);
+        drawBoxLine(w, Color::BRIGHT_GREEN + " " + " Penjaga Toko:" + Color::RESET, Color::BRIGHT_MAGENTA);
         drawBoxLine(w, Color::WHITE + "   \"Selamat datang! Apa yang kamu cari?\"" + Color::RESET, Color::BRIGHT_MAGENTA);
         drawSeparator(w, Color::BRIGHT_MAGENTA);
 
-        drawBoxLine(w, Color::BRIGHT_WHITE + " [1] " + Box::SWORD + " Upgrade Pedang" + Color::RESET, Color::BRIGHT_MAGENTA);
-        drawBoxLine(w, Color::BRIGHT_WHITE + " [2] " + Box::HEART + " Beli Item / Potion" + Color::RESET, Color::BRIGHT_MAGENTA);
-        drawBoxLine(w, Color::BRIGHT_WHITE + " [3] " + Box::SHIELD + " Beli Armor & Accessory" + Color::RESET, Color::BRIGHT_MAGENTA);
+        drawBoxLine(w, Color::BRIGHT_WHITE + " [1] " + " Upgrade Pedang" + Color::RESET, Color::BRIGHT_MAGENTA);
+        drawBoxLine(w, Color::BRIGHT_WHITE + " [2] " + " Beli Item / Potion" + Color::RESET, Color::BRIGHT_MAGENTA);
+        drawBoxLine(w, Color::BRIGHT_WHITE + " [3] " + " Beli Armor & Accessory" + Color::RESET, Color::BRIGHT_MAGENTA);
 
         drawSeparator(w, Color::BRIGHT_MAGENTA);
         drawBoxLine(w, Color::BRIGHT_YELLOW + " Gold: " + to_string(hero.coin) + "G" + Color::RESET, Color::BRIGHT_MAGENTA);

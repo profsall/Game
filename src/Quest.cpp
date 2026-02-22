@@ -8,9 +8,9 @@ using namespace std;
 Quest activeQuests[MAX_QUESTS];
 int activeQuestCount = 0;
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Quest Database
-// ═══════════════════════════════════════════
+// ===========================================
 
 static Quest questDB[] = {
     // id, name, desc, giver, target, targetCount, current, expR, coinR, itemR, active, completed, claimed
@@ -26,9 +26,9 @@ static Quest questDB[] = {
     {9, "Ksatria Kegelapan",     "Kalahkan 3 Dark Knight",                    "Arwah Kesatria", "Dark Knight", 3, 0, 400, 300, 13, false, false, false},
 };
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Functions
-// ═══════════════════════════════════════════
+// ===========================================
 
 void initQuests() {
     activeQuestCount = 0;
@@ -70,7 +70,7 @@ void checkQuestCompletion() {
     for (int i = 0; i < activeQuestCount; i++) {
         if (activeQuests[i].active && activeQuests[i].completed && !activeQuests[i].claimed) {
             cout << endl;
-            cout << "  " << Color::BRIGHT_YELLOW << Box::STAR << " Quest selesai: "
+            cout << "  " << Color::BRIGHT_YELLOW << " Quest selesai: "
                  << Color::BRIGHT_WHITE << activeQuests[i].name << "!" << Color::RESET << endl;
             sleepMs(1000);
         }
@@ -113,9 +113,9 @@ int getAvailableQuestCount(int chapter) {
     return count;
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  UI
-// ═══════════════════════════════════════════
+// ===========================================
 
 void showQuestBoard(Player &hero) {
     while (true) {
@@ -123,7 +123,7 @@ void showQuestBoard(Player &hero) {
         cout << endl;
 
         int w = 56;
-        drawDoubleBox(w, Box::DIAMOND + " PAPAN QUEST " + Box::DIAMOND, Color::BRIGHT_CYAN);
+        drawDoubleBox(w, " PAPAN QUEST ", Color::BRIGHT_CYAN);
 
         // Show available quests
         drawBoxLine(w, Color::BRIGHT_WHITE + " Quest Tersedia:" + Color::RESET, Color::BRIGHT_CYAN);
@@ -172,7 +172,7 @@ void showQuestBoard(Player &hero) {
 
         int questId = questMap[choice - 1];
         if (acceptQuest(questId)) {
-            cout << "  " << Color::BRIGHT_GREEN << Box::STAR << " Quest diterima: "
+            cout << "  " << Color::BRIGHT_GREEN << " Quest diterima: "
                  << questDB[questId].name << "!" << Color::RESET << endl;
             sleepMs(1000);
         } else {
@@ -187,7 +187,7 @@ void showActiveQuests() {
     cout << endl;
 
     int w = 56;
-    drawDoubleBox(w, Box::STAR + " QUEST AKTIF " + Box::STAR, Color::BRIGHT_GREEN);
+    drawDoubleBox(w, " QUEST AKTIF ", Color::BRIGHT_GREEN);
 
     if (activeQuestCount == 0) {
         drawBoxLine(w, Color::DIM + " Tidak ada quest aktif." + Color::RESET, Color::BRIGHT_GREEN);
@@ -206,7 +206,7 @@ void showActiveQuests() {
                 statusStr = "[" + to_string(q.currentCount) + "/" + to_string(q.targetCount) + "]";
             }
 
-            drawBoxLine(w, statusColor + " " + Box::DIAMOND + " " + q.name + " " + statusStr + Color::RESET, Color::BRIGHT_GREEN);
+            drawBoxLine(w, statusColor + " " + " " + q.name + " " + statusStr + Color::RESET, Color::BRIGHT_GREEN);
             drawBoxLine(w, Color::DIM + "   " + q.description + Color::RESET, Color::BRIGHT_GREEN);
         }
     }

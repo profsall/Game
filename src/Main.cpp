@@ -17,19 +17,19 @@
 
 using namespace std;
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Rest at Inn
-// ═══════════════════════════════════════════
+// ===========================================
 
 void restAtInn(Player &hero) {
     clearScreen();
     cout << endl;
 
     int w = 50;
-    drawDoubleBox(w, Box::HEART + " PENGINAPAN DESA " + Box::HEART, Color::BRIGHT_BLUE);
+    drawDoubleBox(w, " PENGINAPAN DESA ", Color::BRIGHT_BLUE);
     drawEmptyLine(w, Color::BRIGHT_BLUE);
 
-    drawBoxLine(w, Color::BRIGHT_GREEN + " " + Box::DIAMOND + " Pemilik Penginapan:" + Color::RESET, Color::BRIGHT_BLUE);
+    drawBoxLine(w, Color::BRIGHT_GREEN + " " + " Pemilik Penginapan:" + Color::RESET, Color::BRIGHT_BLUE);
     drawBoxLine(w, Color::WHITE + "   \"Istirahatlah, kesatria...\"" + Color::RESET, Color::BRIGHT_BLUE);
 
     drawSeparator(w, Color::BRIGHT_BLUE);
@@ -48,7 +48,7 @@ void restAtInn(Player &hero) {
         hero.mp = hero.maxMp;
         sfxHeal();
         cout << endl;
-        cout << "  " << Color::BRIGHT_GREEN << Box::HEART
+        cout << "  " << Color::BRIGHT_GREEN << ""
              << " Kamu beristirahat dengan nyaman..." << Color::RESET << endl;
         cout << "  " << Color::BRIGHT_CYAN
              << "HP dan MP dipulihkan!" << Color::RESET << endl;
@@ -56,16 +56,16 @@ void restAtInn(Player &hero) {
     }
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Wild Battle (Hunting)
-// ═══════════════════════════════════════════
+// ===========================================
 
 void wildBattle(Player &hero) {
     clearScreen();
     cout << endl;
 
     int w = 50;
-    drawDoubleBox(w, Box::SWORD + " BERBURU MONSTER LIAR " + Box::SWORD, Color::BRIGHT_RED);
+    drawDoubleBox(w, " BERBURU MONSTER LIAR ", Color::BRIGHT_RED);
     drawEmptyLine(w, Color::BRIGHT_RED);
     drawDoubleBoxEnd(w, Color::BRIGHT_RED);
 
@@ -79,7 +79,7 @@ void wildBattle(Player &hero) {
     Enemy monster = generateMonster(tier, floor);
 
     cout << endl;
-    cout << "  " << Color::BRIGHT_RED << Box::SKULL << " Seekor "
+    cout << "  " << Color::BRIGHT_RED << " Seekor "
          << Color::BOLD << monster.name << Color::RESET
          << Color::BRIGHT_RED << " liar muncul!" << Color::RESET << endl;
     sleepMs(800);
@@ -87,9 +87,9 @@ void wildBattle(Player &hero) {
     battle(hero, monster);
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Game Hub (Village)
-// ═══════════════════════════════════════════
+// ===========================================
 
 static int currentSaveSlot = 1;
 
@@ -108,10 +108,10 @@ void gameHub(Player &hero) {
             case 2: diffColor = Color::BRIGHT_RED; break;
             default: diffColor = Color::WHITE;
         }
-        drawDoubleBox(w, Box::STAR + " DESA ARCANDIA " + Box::STAR + Color::RESET + Color::DIM + " [" + getDifficultyName(gameConfig.difficulty) + "]" + Color::RESET, Color::BRIGHT_CYAN);
+        drawDoubleBox(w, " DESA ARCANDIA " + Color::RESET + Color::DIM + " [" + getDifficultyName(gameConfig.difficulty) + "]" + Color::RESET, Color::BRIGHT_CYAN);
 
         // Player status bar
-        string statusLine1 = Color::BRIGHT_WHITE + " " + Box::SWORD + " " + hero.name
+        string statusLine1 = Color::BRIGHT_WHITE + " " + " " + hero.name
             + Color::DIM + " | Lv." + to_string(hero.level)
             + " | " + Color::BRIGHT_GREEN + "HP:" + to_string(hero.hp) + "/" + to_string(hero.maxHp)
             + " " + Color::BRIGHT_BLUE + "MP:" + to_string(hero.mp) + "/" + to_string(hero.maxMp)
@@ -119,7 +119,7 @@ void gameHub(Player &hero) {
             + Color::RESET;
         drawBoxLine(w, statusLine1, Color::BRIGHT_CYAN);
 
-        string statusLine2 = Color::DIM + " " + Box::SWORD + " " + Color::BRIGHT_MAGENTA + getSwordName(hero.swordLevel)
+        string statusLine2 = Color::DIM + " " + " " + Color::BRIGHT_MAGENTA + getSwordName(hero.swordLevel)
             + Color::DIM + " | Ch:" + Color::BRIGHT_CYAN + to_string(hero.chapter) + "/4"
             + Color::DIM + " | Tower:" + Color::BRIGHT_GREEN + to_string(hero.towerCleared) + "/4"
             + Color::DIM + " | Kills:" + Color::BRIGHT_RED + to_string(hero.killCount)
@@ -131,15 +131,15 @@ void gameHub(Player &hero) {
         drawBoxLine(w, Color::BOLD + Color::BRIGHT_WHITE + " Apa yang ingin kamu lakukan?" + Color::RESET, Color::BRIGHT_CYAN);
         drawSeparator(w, Color::BRIGHT_CYAN);
 
-        drawBoxLine(w, Color::BRIGHT_WHITE + " [1] " + Color::BRIGHT_RED + Box::SWORD + " Masuk Tower" + Color::RESET, Color::BRIGHT_CYAN);
-        drawBoxLine(w, Color::BRIGHT_WHITE + " [2] " + Color::BRIGHT_YELLOW + Box::SKULL + " Berburu Monster Liar" + Color::RESET, Color::BRIGHT_CYAN);
-        drawBoxLine(w, Color::BRIGHT_WHITE + " [3] " + Color::BRIGHT_MAGENTA + Box::STAR + " Toko Kesatria (Shop)" + Color::RESET, Color::BRIGHT_CYAN);
-        drawBoxLine(w, Color::BRIGHT_WHITE + " [4] " + Color::BRIGHT_BLUE + Box::HEART + " Penginapan (Istirahat)" + Color::RESET, Color::BRIGHT_CYAN);
-        drawBoxLine(w, Color::BRIGHT_WHITE + " [5] " + Color::BRIGHT_CYAN + Box::DIAMOND + " Status & Inventory" + Color::RESET, Color::BRIGHT_CYAN);
-        drawBoxLine(w, Color::BRIGHT_WHITE + " [6] " + Color::BRIGHT_GREEN + Box::STAR + " Quest Board" + Color::RESET, Color::BRIGHT_CYAN);
-        drawBoxLine(w, Color::BRIGHT_WHITE + " [7] " + Color::BRIGHT_RED + Box::SKULL + " Bestiary" + Color::RESET, Color::BRIGHT_CYAN);
-        drawBoxLine(w, Color::BRIGHT_WHITE + " [8] " + Color::BRIGHT_MAGENTA + Box::DIAMOND + " Lore Collection" + Color::RESET, Color::BRIGHT_CYAN);
-        drawBoxLine(w, Color::BRIGHT_WHITE + " [9] " + Color::BRIGHT_GREEN + Box::DIAMOND + " Save Game" + Color::RESET, Color::BRIGHT_CYAN);
+        drawBoxLine(w, Color::BRIGHT_WHITE + " [1] " + Color::BRIGHT_RED + " Masuk Tower" + Color::RESET, Color::BRIGHT_CYAN);
+        drawBoxLine(w, Color::BRIGHT_WHITE + " [2] " + Color::BRIGHT_YELLOW + " Berburu Monster Liar" + Color::RESET, Color::BRIGHT_CYAN);
+        drawBoxLine(w, Color::BRIGHT_WHITE + " [3] " + Color::BRIGHT_MAGENTA + " Toko Kesatria (Shop)" + Color::RESET, Color::BRIGHT_CYAN);
+        drawBoxLine(w, Color::BRIGHT_WHITE + " [4] " + Color::BRIGHT_BLUE + " Penginapan (Istirahat)" + Color::RESET, Color::BRIGHT_CYAN);
+        drawBoxLine(w, Color::BRIGHT_WHITE + " [5] " + Color::BRIGHT_CYAN + " Status & Inventory" + Color::RESET, Color::BRIGHT_CYAN);
+        drawBoxLine(w, Color::BRIGHT_WHITE + " [6] " + Color::BRIGHT_GREEN + " Quest Board" + Color::RESET, Color::BRIGHT_CYAN);
+        drawBoxLine(w, Color::BRIGHT_WHITE + " [7] " + Color::BRIGHT_RED + " Bestiary" + Color::RESET, Color::BRIGHT_CYAN);
+        drawBoxLine(w, Color::BRIGHT_WHITE + " [8] " + Color::BRIGHT_MAGENTA + " Lore Collection" + Color::RESET, Color::BRIGHT_CYAN);
+        drawBoxLine(w, Color::BRIGHT_WHITE + " [9] " + Color::BRIGHT_GREEN + " Save Game" + Color::RESET, Color::BRIGHT_CYAN);
         drawBoxLine(w, Color::DIM + " [0] Kembali ke Menu Utama" + Color::RESET, Color::BRIGHT_CYAN);
 
         drawDoubleBoxEnd(w, Color::BRIGHT_CYAN);
@@ -180,7 +180,7 @@ void gameHub(Player &hero) {
                     int cl = getChoice(1, 2);
                     if (cl == 1) {
                         claimQuestReward(i, hero);
-                        cout << "  " << Color::BRIGHT_GREEN << Box::STAR << " Reward diterima!"
+                        cout << "  " << Color::BRIGHT_GREEN << " Reward diterima!"
                              << Color::RESET << endl;
                         sfxItem();
                         sleepMs(800);
@@ -219,16 +219,16 @@ void gameHub(Player &hero) {
     }
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Difficulty Selection
-// ═══════════════════════════════════════════
+// ===========================================
 
 void selectDifficulty() {
     clearScreen();
     cout << endl;
 
     int w = 52;
-    drawDoubleBox(w, Box::STAR + " PILIH KESULITAN " + Box::STAR, Color::BRIGHT_YELLOW);
+    drawDoubleBox(w, " PILIH KESULITAN ", Color::BRIGHT_YELLOW);
     drawEmptyLine(w, Color::BRIGHT_YELLOW);
 
     drawBoxLine(w, Color::BRIGHT_GREEN + " [1] Easy   " + Color::DIM + "- Musuh lebih lemah, reward banyak" + Color::RESET, Color::BRIGHT_YELLOW);
@@ -254,9 +254,9 @@ void selectDifficulty() {
     sleepMs(800);
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Main
-// ═══════════════════════════════════════════
+// ===========================================
 
 int main() {
     srand((unsigned)time(0));
@@ -336,7 +336,7 @@ int main() {
             cout << endl;
 
             int w = 50;
-            drawDoubleBox(w, Box::STAR + " NEW GAME " + Box::STAR, Color::BRIGHT_GREEN);
+            drawDoubleBox(w, " NEW GAME ", Color::BRIGHT_GREEN);
             drawEmptyLine(w, Color::BRIGHT_GREEN);
             drawBoxLine(w, Color::WHITE + " Petualangan baru dimulai..." + Color::RESET, Color::BRIGHT_GREEN);
             drawEmptyLine(w, Color::BRIGHT_GREEN);
@@ -351,7 +351,7 @@ int main() {
             clearScreen();
             cout << endl;
 
-            drawDoubleBox(w, Box::SWORD + " IDENTITAS KESATRIA " + Box::SWORD, Color::BRIGHT_YELLOW);
+            drawDoubleBox(w, " IDENTITAS KESATRIA ", Color::BRIGHT_YELLOW);
             drawEmptyLine(w, Color::BRIGHT_YELLOW);
             drawBoxLine(w, Color::WHITE + " Masukkan namamu, pahlawan:" + Color::RESET, Color::BRIGHT_YELLOW);
             drawDoubleBoxEnd(w, Color::BRIGHT_YELLOW);
@@ -376,7 +376,7 @@ int main() {
             clearScreen();
             cout << endl;
 
-            drawDoubleBox(w, Box::SPARKLE + " SELAMAT DATANG " + Box::SPARKLE, Color::BRIGHT_CYAN);
+            drawDoubleBox(w, " SELAMAT DATANG ", Color::BRIGHT_CYAN);
             drawEmptyLine(w, Color::BRIGHT_CYAN);
             string welcomeMsg = "Kesatria " + hero.name + ", petualanganmu dimulai!";
             drawBoxLine(w, Color::BRIGHT_WHITE + " " + welcomeMsg + Color::RESET, Color::BRIGHT_CYAN);

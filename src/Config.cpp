@@ -73,7 +73,7 @@ void showConfigMenu() {
         cout << endl;
 
         int w = 54;
-        drawDoubleBox(w, Box::DIAMOND + " SETTINGS " + Box::DIAMOND, Color::BRIGHT_YELLOW);
+        drawDoubleBox(w, " SETTINGS ", Color::BRIGHT_YELLOW);
 
         drawBoxLine(w, Color::BRIGHT_CYAN + " Game    : " + Color::BRIGHT_WHITE + "Arcandia: Shadows of the Four Towers" + Color::RESET, Color::BRIGHT_YELLOW);
         drawBoxLine(w, Color::BRIGHT_CYAN + " Version : " + Color::WHITE + "2.5 (TUI + Features)" + Color::RESET, Color::BRIGHT_YELLOW);

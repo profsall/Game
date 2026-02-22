@@ -5,9 +5,9 @@
 
 using namespace std;
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Setup & Basics
-// ═══════════════════════════════════════════
+// ===========================================
 
 void initTUI() {
     // Enable Virtual Terminal Processing for ANSI on Windows
@@ -54,9 +54,9 @@ void sleepMs(int ms) {
     Sleep(ms);
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Text Helpers
-// ═══════════════════════════════════════════
+// ===========================================
 
 // Calculate visible length (ignoring ANSI codes)
 int visibleLength(const string& text) {
@@ -103,9 +103,9 @@ string padRight(const string& text, int width) {
     return text + string(width - vLen, ' ');
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Rendering — Box Drawing
-// ═══════════════════════════════════════════
+// ===========================================
 
 void drawDoubleBox(int width, const string& title, const string& borderColor) {
     cout << "  " << borderColor << Box::TL;
@@ -158,9 +158,9 @@ void drawPanel(const string& title, const vector<string>& lines, int width, cons
     drawDoubleBoxEnd(width, borderColor);
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Animated Text
-// ═══════════════════════════════════════════
+// ===========================================
 
 void typewriter(const string& text, int delayMs, const string& color) {
     cout << color;
@@ -195,9 +195,9 @@ void dramaticPause(int ms) {
     Sleep(ms);
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Health & Progress Bars
-// ═══════════════════════════════════════════
+// ===========================================
 
 void drawHealthBar(const string& label, int current, int max, int barWidth) {
     if (current < 0) current = 0;
@@ -258,9 +258,9 @@ void drawManaBar(const string& label, int current, int max, int barWidth) {
     cout << bar << endl;
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Menu System
-// ═══════════════════════════════════════════
+// ===========================================
 
 int drawMenu(const string& title, const vector<string>& items, const string& borderColor, int width) {
     int selected = 0;
@@ -305,9 +305,9 @@ int drawMenu(const string& title, const vector<string>& items, const string& bor
     }
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Prompt & Input
-// ═══════════════════════════════════════════
+// ===========================================
 
 void pausePrompt(const string& msg) {
     cout << endl;
@@ -331,9 +331,9 @@ int getChoice(int min, int max) {
     }
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Fancy Displays
-// ═══════════════════════════════════════════
+// ===========================================
 
 void drawTitleArt() {
     clearScreen();
@@ -383,7 +383,7 @@ void drawBattleHeader() {
     for (int i = 0; i < w - 2; i++) cout << Box::H;
     cout << Box::TR << r << endl;
 
-    string title = Box::SWORD + "  B A T T L E  " + Box::SWORD;
+    string title = " B A T T L E ";
     cout << "  " << c << Box::V << r
          << Color::BOLD << Color::BRIGHT_RED << centerText(title, w - 2) << r
          << c << Box::V << r << endl;
@@ -400,9 +400,9 @@ void drawVictoryBanner() {
 
     cout << endl;
     cout << "  " << c << Color::BOLD;
-    cout << "  " << Box::STAR << " " << Box::STAR << " " << Box::STAR;
+    cout << "  " << " " << " " << "";
     cout << "  V I C T O R Y  ";
-    cout << Box::STAR << " " << Box::STAR << " " << Box::STAR;
+    cout << " " << " " << "";
     cout << r << endl;
     cout << endl;
 }
@@ -413,7 +413,7 @@ void drawDefeatBanner() {
 
     cout << endl;
     cout << "  " << c << Color::BOLD;
-    cout << "  " << Box::SKULL << "  D E F E A T  " << Box::SKULL;
+    cout << "  " << "  D E F E A T  " << "";
     cout << r << endl;
     cout << endl;
 }
@@ -429,7 +429,7 @@ void drawLevelUpBanner(int newLevel) {
     for (int i = 0; i < w - 2; i++) cout << Box::H;
     cout << Box::TR << r << endl;
 
-    string title = Box::SPARKLE + "  L E V E L   U P !  " + Box::SPARKLE;
+    string title = " L E V E L   U P ! ";
     cout << "  " << c1 << Box::V << r
          << c1 << Color::BOLD << centerText(title, w - 2) << r
          << c1 << Box::V << r << endl;
@@ -481,9 +481,9 @@ void drawChapterTitle(int chapter, const string& title, const string& subtitle) 
     sleepMs(1500);
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Sound Effects (Windows Beep)
-// ═══════════════════════════════════════════
+// ===========================================
 
 // Forward declare config check
 extern bool isSoundEnabled();
@@ -551,16 +551,16 @@ void sfxMenuSelect() {
     Beep(600, 30);
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Battle Animations
-// ═══════════════════════════════════════════
+// ===========================================
 
 void animateAttack(const string& attackerName, const string& color) {
     string frames[] = {
         "     " + color + attackerName + Color::RESET + "  " + Color::BRIGHT_RED + "-->" + Color::RESET,
         "     " + color + attackerName + Color::RESET + "  " + Color::BRIGHT_RED + "--->" + Color::RESET,
         "     " + color + attackerName + Color::RESET + "  " + Color::BRIGHT_RED + "---->" + Color::RESET,
-        "     " + color + attackerName + Color::RESET + "  " + Color::BRIGHT_RED + "----->" + Color::RESET + " " + Color::BRIGHT_YELLOW + Box::STAR + Color::RESET,
+        "     " + color + attackerName + Color::RESET + "  " + Color::BRIGHT_RED + "----->" + Color::RESET + " " + Color::BRIGHT_YELLOW + Color::RESET,
     };
     for (int i = 0; i < 4; i++) {
         cout << "\r  " << padRight(frames[i], 55);
@@ -574,8 +574,8 @@ void animateCritical() {
     string c = Color::BRIGHT_YELLOW;
     string r = Color::RESET;
     cout << endl;
-    cout << "  " << c << Color::BOLD << "  " << Box::STAR << Box::STAR << Box::STAR
-         << " C R I T I C A L ! " << Box::STAR << Box::STAR << Box::STAR << r << endl;
+    cout << "  " << c << Color::BOLD << "  " << ""
+         << " C R I T I C A L ! " << r << endl;
     cout << endl;
 }
 
@@ -590,12 +590,12 @@ void animateDodge() {
 void animateSkillUse(const string& skillName, const string& color) {
     string r = Color::RESET;
     cout << endl;
-    cout << "  " << color << Color::BOLD << "  " << Box::SPARKLE << " "
-         << skillName << " " << Box::SPARKLE << r << endl;
+    cout << "  " << color << Color::BOLD << "  " << " "
+         << skillName << " " << r << endl;
     Sleep(200);
     cout << "  " << color;
     for (int i = 0; i < 40; i++) {
-        cout << (rand() % 2 ? Box::STAR : Box::SPARKLE);
+        cout << "";
         cout.flush();
         Sleep(15);
     }
@@ -603,9 +603,9 @@ void animateSkillUse(const string& skillName, const string& color) {
     Sleep(200);
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Tower Minimap
-// ═══════════════════════════════════════════
+// ===========================================
 
 void drawTowerMinimap(int currentFloor, int totalFloors, const string& towerName) {
     int w = 30;
@@ -616,7 +616,7 @@ void drawTowerMinimap(int currentFloor, int totalFloors, const string& towerName
     for (int i = 0; i < w - 2; i++) cout << Box::H;
     cout << Box::TR << r << endl;
 
-    string header = Box::DIAMOND + " " + towerName;
+    string header = "" + towerName;
     cout << "  " << bc << Box::V << r << Color::BRIGHT_WHITE << " " << padRight(header, w - 3)
          << bc << Box::V << r << endl;
 
@@ -630,10 +630,10 @@ void drawTowerMinimap(int currentFloor, int totalFloors, const string& towerName
         string floorColor;
         if (f == currentFloor) {
             floorColor = Color::BRIGHT_GREEN;
-            floorLabel = floorColor + " " + Box::ARROW_R + " F" + to_string(f) + " " + Box::SWORD + " SINI";
+            floorLabel = floorColor + " " + Box::ARROW_R + " F" + to_string(f) + " " + "SINI";
         } else if (f < currentFloor) {
             floorColor = Color::DIM;
-            floorLabel = floorColor + "   F" + to_string(f) + " " + Color::BRIGHT_GREEN + Box::STAR + " Cleared";
+            floorLabel = floorColor + "   F" + to_string(f) + " " + Color::BRIGHT_GREEN + "Cleared";
         } else {
             floorColor = Color::BRIGHT_BLACK;
             floorLabel = floorColor + "   F" + to_string(f) + " ???";

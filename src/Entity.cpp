@@ -124,7 +124,7 @@ void displayPlayerStats(Player &p) {
     int w = 52;
     cout << endl;
 
-    drawDoubleBox(w, Box::STAR + " STATUS KESATRIA " + Box::STAR, Color::BRIGHT_CYAN);
+    drawDoubleBox(w, " STATUS KESATRIA ", Color::BRIGHT_CYAN);
 
     drawBoxLine(w, Color::BRIGHT_WHITE + " Nama    : " + Color::BRIGHT_YELLOW + p.name, Color::BRIGHT_CYAN);
     drawBoxLine(w, Color::BRIGHT_WHITE + " Level   : " + Color::BRIGHT_GREEN + to_string(p.level), Color::BRIGHT_CYAN);
@@ -143,20 +143,20 @@ void displayPlayerStats(Player &p) {
         ? getItemTemplate(getEquippedAccessoryId()).name : "None";
 
     vector<string> lines = {
-        Color::BRIGHT_RED + " " + Box::SWORD + " Attack   : " + Color::WHITE + to_string(p.attack)
+        Color::BRIGHT_RED + " " + " Attack   : " + Color::WHITE + to_string(p.attack)
             + Color::DIM + " (+" + to_string(getSwordBonus(p.swordLevel)) + " sword"
             + " +" + to_string(getAccessoryBonus(2)) + " acc)" + Color::RESET,
-        Color::BRIGHT_BLUE + " " + Box::SHIELD + " Defense  : " + Color::WHITE + to_string(getTotalDefense(p))
+        Color::BRIGHT_BLUE + " " + " Defense  : " + Color::WHITE + to_string(getTotalDefense(p))
             + Color::DIM + " (base:" + to_string(p.defense)
             + " +" + to_string(getArmorDefenseBonus()) + " armor)" + Color::RESET,
-        Color::BRIGHT_YELLOW + " " + Box::DIAMOND + " Coin     : " + Color::WHITE + to_string(p.coin) + " G" + Color::RESET,
-        Color::BRIGHT_MAGENTA + " " + Box::STAR + " Pedang   : " + Color::WHITE + getSwordName(p.swordLevel) + Color::RESET,
-        Color::BRIGHT_BLUE + " " + Box::SHIELD + " Armor    : " + Color::WHITE + armorStr + Color::RESET,
-        Color::BRIGHT_MAGENTA + " " + Box::DIAMOND + " Accessory: " + Color::WHITE + accStr + Color::RESET,
-        Color::BRIGHT_RED + " " + Box::SWORD + " Crit Rate: " + Color::WHITE + to_string(p.critRate + getAccessoryBonus(0)) + "%" + Color::RESET,
-        Color::BRIGHT_CYAN + " " + Box::DIAMOND + " Dodge    : " + Color::WHITE + to_string(p.dodgeRate + getAccessoryBonus(1)) + "%" + Color::RESET,
-        Color::BRIGHT_GREEN + " " + Box::HEART + " Kills    : " + Color::WHITE + to_string(p.killCount) + Color::RESET,
-        Color::BRIGHT_CYAN + " " + Box::DIAMOND + " Tower    : " + Color::WHITE + to_string(p.towerCleared) + " / 4" + Color::RESET
+        Color::BRIGHT_YELLOW + " " + " Coin     : " + Color::WHITE + to_string(p.coin) + " G" + Color::RESET,
+        Color::BRIGHT_MAGENTA + " " + " Pedang   : " + Color::WHITE + getSwordName(p.swordLevel) + Color::RESET,
+        Color::BRIGHT_BLUE + " " + " Armor    : " + Color::WHITE + armorStr + Color::RESET,
+        Color::BRIGHT_MAGENTA + " " + " Accessory: " + Color::WHITE + accStr + Color::RESET,
+        Color::BRIGHT_RED + " " + " Crit Rate: " + Color::WHITE + to_string(p.critRate + getAccessoryBonus(0)) + "%" + Color::RESET,
+        Color::BRIGHT_CYAN + " " + " Dodge    : " + Color::WHITE + to_string(p.dodgeRate + getAccessoryBonus(1)) + "%" + Color::RESET,
+        Color::BRIGHT_GREEN + " " + " Kills    : " + Color::WHITE + to_string(p.killCount) + Color::RESET,
+        Color::BRIGHT_CYAN + " " + " Tower    : " + Color::WHITE + to_string(p.towerCleared) + " / 4" + Color::RESET
     };
 
     drawPanel("DETAIL STATS", lines, w, Color::BRIGHT_YELLOW);

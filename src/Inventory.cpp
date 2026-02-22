@@ -4,9 +4,9 @@
 #include <iostream>
 using namespace std;
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Global State
-// ═══════════════════════════════════════════
+// ===========================================
 
 Item inventory[MAX_INVENTORY];
 int inventoryCount = 0;
@@ -17,9 +17,9 @@ int loreCount = 0;
 static int equippedArmorId = -1;
 static int equippedAccessoryId = -1;
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Item Database
-// ═══════════════════════════════════════════
+// ===========================================
 
 static Item itemDB[] = {
     // id, name, description, type, value, price, count, equipped
@@ -57,9 +57,9 @@ static Item loreDB[] = {
     {7, "Liontin Dark Lord",       "Sebuah liontin hitam berukir...",   ITEM_LORE, 0, 0, 0, false},
 };
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Functions
-// ═══════════════════════════════════════════
+// ===========================================
 
 void initInventory() {
     inventoryCount = 0;
@@ -166,9 +166,9 @@ bool hasLoreItem(int loreId) {
     return false;
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Inventory UI
-// ═══════════════════════════════════════════
+// ===========================================
 
 void showInventoryMenu(Player &hero) {
     while (true) {
@@ -176,7 +176,7 @@ void showInventoryMenu(Player &hero) {
         cout << endl;
 
         int w = 56;
-        drawDoubleBox(w, Box::STAR + " INVENTORY " + Box::STAR, Color::BRIGHT_YELLOW);
+        drawDoubleBox(w, " INVENTORY ", Color::BRIGHT_YELLOW);
 
         // Equipped items
         string armorStr = (equippedArmorId >= 0) ? getItemTemplate(equippedArmorId).name : "None";
@@ -299,7 +299,7 @@ void showLoreCollection() {
     cout << endl;
 
     int w = 56;
-    drawDoubleBox(w, Box::DIAMOND + " KOLEKSI LORE " + Box::DIAMOND, Color::BRIGHT_MAGENTA);
+    drawDoubleBox(w, " KOLEKSI LORE ", Color::BRIGHT_MAGENTA);
 
     if (loreCount == 0) {
         drawBoxLine(w, Color::DIM + " Belum ada lore yang ditemukan." + Color::RESET, Color::BRIGHT_MAGENTA);
@@ -308,7 +308,7 @@ void showLoreCollection() {
         drawBoxLine(w, Color::BRIGHT_WHITE + " Ditemukan: " + Color::BRIGHT_YELLOW + to_string(loreCount) + "/" + to_string(TOTAL_LORE_ITEMS) + Color::RESET, Color::BRIGHT_MAGENTA);
         drawSeparator(w, Color::BRIGHT_MAGENTA);
         for (int i = 0; i < loreCount; i++) {
-            drawBoxLine(w, Color::BRIGHT_YELLOW + " " + Box::STAR + " " + Color::BRIGHT_WHITE + loreItems[i].name + Color::RESET, Color::BRIGHT_MAGENTA);
+            drawBoxLine(w, Color::BRIGHT_YELLOW + " " + " " + Color::BRIGHT_WHITE + loreItems[i].name + Color::RESET, Color::BRIGHT_MAGENTA);
             drawBoxLine(w, Color::DIM + "   " + loreItems[i].description + Color::RESET, Color::BRIGHT_MAGENTA);
         }
     }

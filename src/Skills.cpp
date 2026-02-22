@@ -7,9 +7,9 @@ using namespace std;
 Skill playerSkills[MAX_SKILLS];
 int playerSkillCount = 0;
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Skill Database
-// ═══════════════════════════════════════════
+// ===========================================
 
 static Skill skillDB[] = {
     // id, name, desc, type, manaCost, power, reqLevel
@@ -25,9 +25,9 @@ static Skill skillDB[] = {
     {9, "Iron Fortress",  "DEF +50% untuk 3 turn",               SKILL_BUFF,   15, 50,  7},
 };
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  Functions
-// ═══════════════════════════════════════════
+// ===========================================
 
 void initSkills() {
     playerSkillCount = 0;
@@ -53,7 +53,7 @@ void checkNewSkills(int playerLevel) {
                 playerSkillCount++;
 
                 cout << endl;
-                drawDoubleBox(48, Box::SPARKLE + " SKILL BARU! " + Box::SPARKLE, Color::BRIGHT_MAGENTA);
+                drawDoubleBox(48, " SKILL BARU! ", Color::BRIGHT_MAGENTA);
                 drawBoxLine(48, Color::BRIGHT_WHITE + " " + skillDB[s].name + Color::RESET, Color::BRIGHT_MAGENTA);
                 drawBoxLine(48, Color::DIM + " " + skillDB[s].description + Color::RESET, Color::BRIGHT_MAGENTA);
                 drawBoxLine(48, Color::BRIGHT_BLUE + " MP Cost: " + to_string(skillDB[s].manaCost) + Color::RESET, Color::BRIGHT_MAGENTA);
@@ -83,16 +83,16 @@ int useHealSkill(int skillId) {
     return sk.power; // heal amount directly
 }
 
-// ═══════════════════════════════════════════
+// ===========================================
 //  UI
-// ═══════════════════════════════════════════
+// ===========================================
 
 void showSkillsMenu() {
     clearScreen();
     cout << endl;
 
     int w = 52;
-    drawDoubleBox(w, Box::STAR + " SKILL LIST " + Box::STAR, Color::BRIGHT_MAGENTA);
+    drawDoubleBox(w, " SKILL LIST ", Color::BRIGHT_MAGENTA);
 
     if (playerSkillCount == 0) {
         drawBoxLine(w, Color::DIM + " Belum ada skill. Level up untuk unlock!" + Color::RESET, Color::BRIGHT_MAGENTA);
@@ -132,9 +132,9 @@ int showBattleSkills(int playerMp) {
         string canUse = (playerMp >= sk.manaCost) ? Color::BRIGHT_WHITE : Color::DIM + Color::BRIGHT_BLACK;
         string typeChar;
         switch (sk.type) {
-            case SKILL_ATTACK: typeChar = Box::SWORD; break;
-            case SKILL_HEAL: typeChar = Box::HEART; break;
-            case SKILL_BUFF: typeChar = Box::STAR; break;
+            case SKILL_ATTACK: typeChar = "[ATK]"; break;
+            case SKILL_HEAL: typeChar = "[HEAL]"; break;
+            case SKILL_BUFF: typeChar = "[BUFF]"; break;
         }
         drawBoxLine(w, canUse + " [" + to_string(i+1) + "] " + typeChar + " "
             + padRight(sk.name, 16) + Color::BRIGHT_BLUE + "MP:" + to_string(sk.manaCost)
