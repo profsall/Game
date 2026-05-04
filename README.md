@@ -1,4 +1,3 @@
-Oke iqq, ini dokumentasi lengkap buat kode game RPG Tower yang udah kita bahas. Gue tulis pake gaya laporan mahasiswa tingkat akhir biar kelihatan pro tapi tetep santai pas dibaca. Formatnya udah gue sesuaikan jadi `README.md` biar lu tinggal copy-paste aja ke repo GitHub lu.
 
 ---
 
@@ -61,5 +60,3 @@ Berdasarkan file `savegame.txt` yang ada, status terakhir karakter adalah:
 * **Inventory**: Di slot awal ada item index 2 (Pedang Besi), index 5 (Jubah Naga), dan index 4 (Pedang Mistik).
 
 ---
-
-Semoga dokumentasi ini ngebantu lu buat jelasin tugas atau proyek ini ya broo. Kalau ada bagian logika yang mau diubah, kabari aja!
