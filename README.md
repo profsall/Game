@@ -3,8 +3,6 @@
 
 # Dokumentasi Proyek: ASCII RPG Tower Game
 
-Yo iqq! Jadi ini adalah dokumentasi teknis buat game RPG berbasis CLI (Command Line Interface) yang kita kerjain. Game ini fokus sama sistem pendakian tower, grinding level, dan manajemen resource (coin & inventory). 
-
 ## 1. Ikhtisar (Overview)
 Game ini dibuat pake C++ standar dengan pendekatan prosedural. Inti permainannya adalah pemain harus naik sampai lantai 4, tapi tiap lantai punya syarat level tertentu dan harus ngalahin bos dulu. Ada sistem *permadeath* ringan di mana kalau HP habis, pemain nggak langsung game over tapi harus balik ke toko buat beli ramuan.
 
