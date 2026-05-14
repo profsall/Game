@@ -8,7 +8,8 @@ using namespace std;
 // ============================================================
 //   KONSTANTA GLOBAL
 // ============================================================
-const int MAX_INVENTORY = 5;
+const int EQUIP_ITEMS = 5;
+const int BACKPACK_SIZE = 20;
 const int MAX_ITEMS     = 10;  // Ditambah jadi 10 item
 const int MAX_FLOORS    = 4;
 
@@ -43,19 +44,51 @@ Item shopItems[MAX_ITEMS] = {
 // ============================================================
 struct Player {
     string name;
-    int  hp;
-    int  maxHp;
-    int  attack;
-    int  coin;
-    int  exp;
-    int  level;
-    int  currentFloor;
-    int  inventory[MAX_INVENTORY]; 
+    int hp;
+    int maxHp;
+    int attack;
+    int coin;
+    int exp;
+    int level;
+    int currentFloor;
+    int inventory[EQUIP_ITEMS]; 
+    int backpack[BACKPACK_SIZE]; // Ieu backpack anyar teh
 };
 
-// ============================================================
-//   FUNGSI UTILITAS
-// ============================================================
+// Ngurutkeun backpack dumasar index item (ID item)
+void bubbleSortBackpack(Player& p) {
+    for (int i = 0; i < BACKPACK_SIZE - 1; i++) {
+        for (int j = 0; j < BACKPACK_SIZE - i - 1; j++) {
+            if (p.backpack[j] > p.backpack[j + 1]) {
+                int temp = p.backpack[j];
+                p.backpack[j] = p.backpack[j + 1];
+                p.backpack[j + 1] = temp;
+            }
+        }
+    }
+}
+
+// Linear Search: Neangan barang hiji-hiji ti hareup
+int linearSearch(Player& p, int targetID) {
+    for (int i = 0; i < BACKPACK_SIZE; i++) {
+        if (p.backpack[i] == targetID) return i;
+    }
+    return -1;
+}
+
+// Binary Search: Neangan barang ku cara dibelah dua (kudu di-sort heula!)
+int binarySearch(Player& p, int targetID) {
+    bubbleSortBackpack(p); // Wajib sorting!
+    int low = 0, high = BACKPACK_SIZE - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (p.backpack[mid] == targetID) return mid;
+        if (p.backpack[mid] < targetID) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}
+
 void clearScreen() {
 #ifdef _WIN32
     system("cls");
@@ -72,7 +105,7 @@ void pause() {
 
 int getTotalAtkBonus(const Player& p) {
     int total = 0; // Kesalahan konyol manéh (0;2;) geus dibenerkeun
-    for (int i = 0; i < MAX_INVENTORY; i++) {
+    for (int i = 0; i < EQUIP_ITEMS; i++) {
         if (p.inventory[i] != -1) {
             total += shopItems[p.inventory[i]].atkBonus;
         }
@@ -88,18 +121,17 @@ int getEffectiveAtk(const Player& p) {
 //   ASCII ART
 // ============================================================
 void printTower() {
-    cout << "        /\\\n";
-    cout << "       /  \\\n";
-    cout << "      / 4F \\\n";
-    cout << "     /------\\\n";
-    cout << "    /  3F    \\\n";
-    cout << "   /----------\\\n";
-    cout << "  /    2F      \\\n";
-    cout << " /--------------\\\n";
-    cout << "/      1F        \\\n";
-    cout << "|================|\n";
-    cout << "|   TOWER ASCII  |\n";
-    cout << "|________________|\n";
+    cout <<" __     __     __" << endl;
+    cout <<"|  |___|  |___|  |" << endl;
+    cout <<"|                |" << endl;
+    cout <<"|     Floor 4    |" << endl;
+    cout <<"|                |" << endl;
+    cout <<"|     Floor 3    |" << endl;
+    cout <<"|                |" << endl;
+    cout <<"|     Floor 2    |" << endl;
+    cout <<"|                |" << endl;
+    cout <<"|     Floor 1    |" << endl;
+    cout <<"|________________|" << endl;
 }
 
 void printPlayer() {
@@ -122,26 +154,20 @@ void printBoss() {
     cout << "  /     \\  \n";
 }
 
-void printBanner() {
+void banner() {
     cout << "        ASCII RPG TOWER GAME          \n";
 }
 
-// ============================================================
-//   INISIALISASI & LEVEL UP
-// ============================================================
+
 void initPlayer(Player& p, const string& playerName) {
     p.name = playerName;
-    p.hp = 100;
-    p.maxHp = 100;
-    p.attack = 10;
-    p.coin = 100;
-    p.exp = 0;
-    p.level = 1;
+    p.hp = 100; p.maxHp = 100;
+    p.attack = 10; p.coin = 100;
+    p.exp = 0; p.level = 1;
     p.currentFloor = 1;
 
-    for (int i = 0; i < MAX_INVENTORY; i++) {
-        p.inventory[i] = -1;
-    }
+    for (int i = 0; i < EQUIP_ITEMS; i++) p.inventory[i] = -1;
+    for (int i = 0; i < BACKPACK_SIZE; i++) p.backpack[i] = -1; // Kosongkeun backpack
 }
 
 void checkLevelUp(Player& p) {
@@ -165,7 +191,7 @@ void checkLevelUp(Player& p) {
 // ============================================================
 void showStatus(const Player& p) {
     clearScreen();
-    printBanner();
+    banner();
     cout << "\n--- STATUS PLAYER ---\n";
     printPlayer();
     cout << "Nama       : " << p.name << "\n";
@@ -176,8 +202,8 @@ void showStatus(const Player& p) {
     cout << "Coin       : " << p.coin << "\n";
     cout << "Lantai     : " << p.currentFloor << " / " << MAX_FLOORS << "\n";
 
-    cout << "\n--- INVENTORY (" << MAX_INVENTORY << " slot) ---\n";
-    for (int i = 0; i < MAX_INVENTORY; i++) {
+    cout << "\n--- INVENTORY (" << EQUIP_ITEMS << " slot) ---\n";
+    for (int i = 0; i < EQUIP_ITEMS; i++) {
         cout << "[Slot " << (i + 1) << "] ";
         if (p.inventory[i] == -1) {
             cout << "(kosong)\n";
@@ -188,8 +214,7 @@ void showStatus(const Player& p) {
 }
 
 // ============================================================
-//   SISTEM BATTLE TERPUSAT
-//   Ngatur pertarungan jeung monster atawa bos
+//   SISTEM BATTLE TERPUSAT (UPDATED)
 // ============================================================
 bool startBattle(Player& p, bool isBoss, int floor) {
     clearScreen();
@@ -211,9 +236,15 @@ bool startBattle(Player& p, bool isBoss, int floor) {
         enemyAtk = 5  + (floor * 3)  + rand() % 5;
     }
 
+    // --- Karakter maneh nembongan di dieu ---
+    cout << "\n      [ VS ]      \n\n";
+    printPlayer(); 
+    cout << "   ( " << p.name << " )\n";
+    // ----------------------------------------
+
     cout << "\n" << enemyName << " menghadangmu!\n";
-    cout << "HP  : " << enemyHp  << "\n";
-    cout << "ATK : " << enemyAtk << "\n";
+    cout << "HP Musuh : " << enemyHp  << "\n";
+    cout << "ATK Musuh: " << enemyAtk << "\n";
     cout << "\n1. Serang!\n2. Kabur\n> ";
 
     int choice;
@@ -267,7 +298,6 @@ bool startBattle(Player& p, bool isBoss, int floor) {
         return false;
     }
 }
-
 // ============================================================
 //   SISTEM GRINDING
 // ============================================================
@@ -306,7 +336,7 @@ void shopMenu(Player& p) {
             }
 
             int emptySlot = -1;
-            for (int i = 0; i < MAX_INVENTORY; i++) {
+            for (int i = 0; i < EQUIP_ITEMS; i++) {
                 if (p.inventory[i] == -1) {
                     emptySlot = i; 
                     break;         
@@ -332,7 +362,7 @@ void shopMenu(Player& p) {
             cout << "\n--- INVENTORY KAMU ---\n";
 
             bool hasItem = false;
-            for (int i = 0; i < MAX_INVENTORY; i++) {
+            for (int i = 0; i < EQUIP_ITEMS; i++) {
                 if (p.inventory[i] != -1) {
                     hasItem = true;
                     cout << (i + 1) << ". [Slot " << (i+1) << "] "
@@ -351,7 +381,7 @@ void shopMenu(Player& p) {
             int sellSlot;
             cin >> sellSlot;
 
-            if (sellSlot >= 1 && sellSlot <= MAX_INVENTORY) {
+            if (sellSlot >= 1 && sellSlot <= EQUIP_ITEMS) {
                 int slotIdx = sellSlot - 1;
                 if (p.inventory[slotIdx] == -1) {
                     cout << "Slot kosong!\n";
@@ -447,6 +477,36 @@ void towerMenu(Player& p) {
     }
 }
 
+void backpackMenu(Player& p) {
+    int choice;
+    do {
+        clearScreen();
+        cout << "=== TAS BACKPACK (" << BACKPACK_SIZE << " SLOT) ===\n";
+        for (int i = 0; i < BACKPACK_SIZE; i++) {
+            cout << "[" << i + 1 << "] ";
+            if (p.backpack[i] == -1) cout << "(kosong)\n";
+            else cout << shopItems[p.backpack[i]].name << "\n";
+        }
+
+        cout << "\n1. Sortir Barang (Bubble Sort)\n2. Cari Barang (Linear)\n3. Cari Barang (Binary)\n0. Kembali\n> ";
+        cin >> choice;
+
+        if (choice == 1) {
+            bubbleSortBackpack(p);
+            cout << "Backpack geus rapih!\n"; pause();
+        } else if (choice == 2 || choice == 3) {
+            int id;
+            cout << "Asupkeun ID Item (1-10): "; cin >> id;
+            int target = id - 1;
+            int hasil = (choice == 2) ? linearSearch(p, target) : binarySearch(p, target);
+            
+            if (hasil != -1) cout << "Barang aya dina slot ka-" << hasil + 1 << "!\n";
+            else cout << "Barang euweuh dina tas.\n";
+            pause();
+        }
+    } while (choice != 0);
+}
+
 // ============================================================
 //   SAVE & LOAD
 // ============================================================
@@ -466,7 +526,7 @@ void saveGame(const Player& p) {
     file << p.level        << "\n";
     file << p.currentFloor << "\n";
 
-    for (int i = 0; i < MAX_INVENTORY; i++) {
+    for (int i = 0; i < EQUIP_ITEMS; i++) {
         file << p.inventory[i] << "\n";
     }
     file.close(); 
@@ -487,7 +547,7 @@ bool loadGame(Player& p) {
     file >> p.level;
     file >> p.currentFloor;
 
-    for (int i = 0; i < MAX_INVENTORY; i++) {
+    for (int i = 0; i < EQUIP_ITEMS; i++) {
         file >> p.inventory[i];
     }
     file.close();
@@ -505,7 +565,8 @@ void mainMenu(Player& p) {
         cout << "1. Grinding (Cari Monster)\n";
         cout << "2. Toko Item\n";
         cout << "3. Menu Tower (Lawan Bos)\n";
-        cout << "4. Simpan Game\n";
+        cout << "4. Backpack\n";
+        cout << "5. Simpan Game\n";
         cout << "0. Keluar\n";
         cout << "> ";
         cin >> choice;
@@ -514,7 +575,8 @@ void mainMenu(Player& p) {
             case 1: grindMenu(p); break;
             case 2: shopMenu(p);  break;
             case 3: towerMenu(p); break;
-            case 4: saveGame(p);  break;
+            case 4: backpackMenu(p); break;
+            case 5: saveGame(p);  break;
             case 0: cout << "Sampai jumpa, " << p.name << "!\n"; break;
             default: cout << "Pilihan tidak valid!\n"; pause(); break;
         }
@@ -526,7 +588,7 @@ int main() {
     int startChoice;
     string name; 
     clearScreen();
-    printBanner();
+    banner();
     
     Player player;
     cout << "\n1. New Game\n2. Load Game\n> "; cin >> startChoice;
