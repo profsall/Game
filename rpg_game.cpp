@@ -50,7 +50,7 @@ Material materials[MAX_MATERIALS] = {
     {"Batu Kecil",       8,  0},
     {"Serpihan Besi",   15,  0},
     {"Tulang Monster",  12,  0},
-    {"Emas Bongkahan",  40,  0},
+    {"Biji Emas",  40,  0},
     {"Kristal Merah",   60,  0},
     {"Ramuan HP Kecil",  0, 20},
     {"Ramuan HP Besar",  0, 50},
