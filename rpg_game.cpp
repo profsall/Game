@@ -243,30 +243,30 @@ void dropLoot(Player& p, bool isBoss)
         int roll = rand() % 100;
         int matIdx = -1;
 
-        if (roll < 15)
-        {
-            matIdx = (rand() % 2 == 0) ? 6 : 7;
-        }
-        else if (roll < 15 + p.currentFloor * 8)
-        {
-            matIdx = (rand() % 2 == 0) ? 4 : 5;
-        }
-        else if (roll < 50)
-        {
-            matIdx = (rand() % 2 == 0) ? 2 : 3;
-        }
-        else
-        {
-            matIdx = (rand() % 2 == 0) ? 0 : 1;
-        }
+    if (roll < 15)
+    {
+        matIdx = 6 + rand() % 2;  // hasilnya 6 atau 7
+    }
+    else if (roll < 15 + p.currentFloor * 8)
+    {
+        matIdx = 4 + rand() % 2;  // hasilnya 4 atau 5
+    }
+    else if (roll < 50)
+    {
+        matIdx = 2 + rand() % 2;  // hasilnya 2 atau 3
+    }
+    else
+    {
+        matIdx = 0 + rand() % 2;  // hasilnya 0 atau 1
+    }
 
         if (addToBackpack(p, matIdx))
         {
-            cout << "  + Kamu dapat: " << materials[matIdx].name << "!\n";
+            cout << " + Kamu dapat: " << materials[matIdx].name << "!\n";
         }
         else
         {
-            cout << "  ! Backpack penuh, " << materials[matIdx].name << " terbuang!\n";
+            cout << " ! Backpack penuh, " << materials[matIdx].name << " terbuang!\n";
         }
     }
 }
